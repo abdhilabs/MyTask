@@ -26,6 +26,9 @@ android {
         enabled = true
     }
 
+    androidExtensions {
+        experimental = true
+    }
 }
 apply from: '../libraries.gradle'
 dependencies {

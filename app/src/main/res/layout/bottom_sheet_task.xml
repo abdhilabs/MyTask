@@ -61,7 +61,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etTitled"
+                    android:id="@+id/etTitle"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_x7"
                     android:hint="Title"
@@ -114,12 +114,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/btnSave"
                 android:layout_width="@dimen/space_x16"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_x2"
                 android:layout_marginBottom="@dimen/space_x2"
                 android:background="@drawable/bg_rounded_button"
+                android:onClick="@{()-> fragment.onBtnSaveClicked()}"
                 android:text="Save Task"
                 android:textColor="@color/whiteColor"
                 app:layout_constraintBottom_toBottomOf="parent"
