@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+    defaultConfig {
+        applicationId "com.abdhilabs.mytask"
+        minSdkVersion 22
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+}
+apply from: '../libraries.gradle'
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation appDependencies
+    kapt kaptDependencies.values()
+
+    testImplementation testDependencies.junit
+    androidTestImplementation testDependencies.ext_junit
+    androidTestImplementation testDependencies.espresso_core
+}
