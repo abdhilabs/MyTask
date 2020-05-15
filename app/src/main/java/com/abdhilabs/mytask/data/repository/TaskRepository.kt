@@ -2,8 +2,11 @@ package com.abdhilabs.mytask.data.repository
 
 import com.abdhilabs.mytask.data.model.Task
 import com.abdhilabs.mytask.db.AppDatabase
+import dagger.Reusable
+import javax.inject.Inject
 
-class TaskRepository(private val db: AppDatabase) {
+@Reusable
+class TaskRepository @Inject constructor(private val db: AppDatabase) {
 
     suspend fun insertTask(task: Task) = db.taskDao().insertTask(task)
 

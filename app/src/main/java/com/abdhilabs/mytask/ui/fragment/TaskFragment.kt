@@ -17,7 +17,7 @@ class TaskFragment : BaseDialogFragment<BottomSheetTaskBinding>() {
     override fun initViewCreated() {
         binding.lifecycleOwner = this
         binding.fragment = this
-        viewmodel = (activity as MainActivity).viewModel
+        viewmodel = (activity as MainActivity).viewmodel
     }
 
     fun onBtnSaveClicked() {

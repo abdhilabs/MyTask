@@ -5,8 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.abdhilabs.mytask.data.model.Task
 import com.abdhilabs.mytask.data.repository.TaskRepository
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TaskViewModel(private val repo: TaskRepository) : ViewModel() {
+class TaskViewModel @Inject constructor(private val repo: TaskRepository) : ViewModel() {
 
     fun saveTask(task: Task) = viewModelScope.launch {
         repo.insertTask(task)
