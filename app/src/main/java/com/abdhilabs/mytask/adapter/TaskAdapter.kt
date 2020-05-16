@@ -1,25 +1,22 @@
 package com.abdhilabs.mytask.adapter
 
-import android.view.View
+import android.annotation.SuppressLint
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.abdhilabs.mytask.R
 import com.abdhilabs.mytask.data.model.Task
-import com.abdhilabs.mytask.utils.inflate
-import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.item_task.*
+import com.abdhilabs.mytask.databinding.ItemTaskBinding
 
 class TaskAdapter : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), LayoutContainer {
-        override val containerView: View?
-            get() = itemView
-
+    inner class ViewHolder(private val binding: ItemTaskBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(task: Task) {
-            tvTitle.text = task.title
-            tvDeadline.text = task.deadline
+            binding.task = task
+            binding.adapter = TaskAdapter()
         }
     }
 
@@ -36,7 +33,9 @@ class TaskAdapter : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
     val differ = AsyncListDiffer(this, differCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(parent.inflate(R.layout.item_task))
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val itemBinding = ItemTaskBinding.inflate(layoutInflater, parent, false)
+        return ViewHolder(itemBinding)
     }
 
     override fun getItemCount(): Int = differ.currentList.size
@@ -45,6 +44,16 @@ class TaskAdapter : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
         val task = differ.currentList[position]
         holder.bind(task)
         holder.itemView.setOnClickListener { onItemClickListener?.let { it(task) } }
+    }
+
+    fun moveItem(from: Int, to: Int) {
+        val fromItem = differ.currentList.toMutableList()[from]
+        differ.currentList.toMutableList().removeAt(from)
+        if (to < from) {
+            differ.currentList.toMutableList().add(to, fromItem)
+        } else {
+            differ.currentList.add(to - 1, fromItem)
+        }
     }
 
     private var onItemClickListener: ((Task) -> Unit)? = null

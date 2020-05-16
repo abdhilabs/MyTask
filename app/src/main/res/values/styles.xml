@@ -8,4 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="CalendarDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/greenColor</item>
+    </style>
+
 </resources>

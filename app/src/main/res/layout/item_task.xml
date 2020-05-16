@@ -5,6 +5,13 @@
 
     <data>
 
+        <variable
+            name="adapter"
+            type="com.abdhilabs.mytask.adapter.TaskAdapter" />
+
+        <variable
+            name="task"
+            type="com.abdhilabs.mytask.data.model.Task" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -12,11 +19,16 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_x2"
         android:layout_marginVertical="@dimen/space_x1"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="@dimen/space_x1">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rounded_layout_white"
+            app:onLayoutDateDeadline="@{task.deadline}">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imgIcon"
@@ -28,27 +40,35 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_document" />
+                app:onIconDateDeadline="@{task.deadline}"
+                tools:srcCompat="@drawable/ic_document" />
 
             <TextView
                 android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:textSize="18sp"
+                android:layout_marginStart="@dimen/space_x1"
+                android:layout_marginEnd="@dimen/space_x1"
+                android:text="@{task.title}"
+                android:textColor="#71C2FF"
+                android:textSize="@dimen/text_18"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imgIcon"
                 app:layout_constraintTop_toTopOf="@+id/imgIcon"
+                app:onTextTitleDateDeadline="@{task.deadline}"
                 tools:text="Tugas PWEB" />
 
             <TextView
                 android:id="@+id/tvDeadline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="@dimen/space_x1"
+                android:layout_marginTop="@dimen/space_x1"
+                android:textColor="@color/redColor"
                 app:layout_constraintStart_toEndOf="@+id/imgIcon"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                app:onTextSubTitleDateDeadline="@{task.deadline}"
                 tools:text="Deadline : 8 Juni 2020" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

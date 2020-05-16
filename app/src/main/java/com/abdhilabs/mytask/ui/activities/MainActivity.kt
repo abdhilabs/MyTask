@@ -1,6 +1,5 @@
 package com.abdhilabs.mytask.ui.activities
 
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,11 +28,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun initView() {
         binding.lifecycleOwner = this
         binding.activity = this
-        setupRv()
+        binding.viewmodel = viewmodel
+        taskAdapter = TaskAdapter()
+        binding.rvTask.adapter = taskAdapter
         initSwipe()
-        viewmodel.getTask().observe(this, Observer {
-            taskAdapter.differ.submitList(it)
-        })
     }
 
     private fun initSwipe() {
@@ -65,14 +63,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         ItemTouchHelper(itemTouchHelperCallback).apply {
             attachToRecyclerView(binding.rvTask)
-        }
-    }
-
-    private fun setupRv() {
-        taskAdapter = TaskAdapter()
-        binding.rvTask.apply {
-            adapter = taskAdapter
-            layoutManager = LinearLayoutManager(this@MainActivity)
         }
     }
 

@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/darkGreyColor</color>
-    <color name="colorPrimaryDark">@color/darkColor</color>
-    <color name="colorAccent">@color/lightGreyColor</color>
+    <color name="colorPrimary">@color/greenColor</color>
+    <color name="colorPrimaryDark">@color/blueOceanColor</color>
+    <color name="colorAccent">@color/lightWhiteColor</color>
 
-    <color name="darkGreyColor">#545352</color>
-    <color name="lightGreyColor">#F1E4DD</color>
-    <color name="orangeColor">#CB2A1D</color>
-    <color name="darkColor">#08090A</color>
+    <!--    <color name="darkGreyColor">#545352</color>-->
+    <!--    <color name="lightGreyColor">#D8CDB9</color>-->
+    <!--    <color name="yellowColor">#C28C2E</color>-->
+    <!--    <color name="orangeColor">#721B29</color>-->
+    <!--    <color name="darkColor">#222220</color>-->
+    <color name="greenColor">#95CE67</color>
+    <color name="lightGreenColor">#DAE3BB</color>
+    <color name="lightWhiteColor">#FAF8F0</color>
+    <color name="blueOceanColor">#95DDDA</color>
+    <color name="blueSkyColor">#71C2FF</color>
+    <color name="redColor">#BC2C3D</color>
     <color name="whiteColor">#ffffff</color>
 </resources>
