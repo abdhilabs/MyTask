@@ -11,4 +11,4 @@ My Task adalah aplikasi pencatatan tugas sederhana dengan stack MVVM, Coroutine,
 5. Dagger2
 
 ### Contributing
-Pull request the project, you're in. :)
+Make branch what you do -> pull request the project -> you're in. :)
