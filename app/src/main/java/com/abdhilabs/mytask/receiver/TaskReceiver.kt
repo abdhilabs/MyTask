@@ -25,7 +25,7 @@ class TaskReceiver : BroadcastReceiver() {
         if (intent != null) {
             if (getTimeNow() == validateTime) {
                 if (type.equals(MORNING_NOTIFICATION)) {
-                    notificationManager.sendNotification("You have task to do morning", context)
+                    notificationManager.sendNotification("Skuyyy, check your task today!", context)
                 } else {
                     Toast.makeText(context, "Not found", Toast.LENGTH_SHORT).show()
                 }
@@ -34,7 +34,7 @@ class TaskReceiver : BroadcastReceiver() {
     }
 
     private fun getTimeNow(): String {
-        val dateTimeMillis = System.currentTimeMillis()
+//        val dateTimeMillis = System.currentTimeMillis()
 
 //        val calendar = Calendar.getInstance()
 //        calendar.timeInMillis = dateTimeMillis

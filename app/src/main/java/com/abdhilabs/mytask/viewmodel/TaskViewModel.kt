@@ -8,10 +8,12 @@ import androidx.lifecycle.viewModelScope
 import com.abdhilabs.mytask.App.Companion.pref
 import com.abdhilabs.mytask.data.model.Task
 import com.abdhilabs.mytask.data.repository.TaskRepository
+import com.abdhilabs.mytask.utils.DateTimeFormatter
 import com.abdhilabs.mytask.utils.cancelNotification
 import com.abdhilabs.mytask.utils.setupNotification
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 class TaskViewModel @Inject constructor(
@@ -19,24 +21,50 @@ class TaskViewModel @Inject constructor(
     private val app: Application
 ) : AndroidViewModel(app) {
 
-    private val _task = MutableLiveData<List<Task>?>()
+    private val now = Calendar.getInstance()
+    private val date = DateTimeFormatter.getDate(now.time)
 
+    private val _task = MutableLiveData<List<Task>?>()
     val task: LiveData<List<Task>?>
         get() = _task
 
     private val _isEmpty = MutableLiveData<Boolean>()
-
     val isEmpty: LiveData<Boolean>
         get() = _isEmpty
 
     private val _isChecked = MutableLiveData<Boolean>()
-
     val isChecked: LiveData<Boolean>
         get() = _isChecked
 
+    private val _setTextDay = MutableLiveData<String>()
+    val setTextDay: LiveData<String>
+        get() = _setTextDay
+
+    private val _setTextUsername = MutableLiveData<String>()
+    val setTextUsername: LiveData<String>
+        get() = _setTextUsername
+
+    private val _setTextToday = MutableLiveData<String>()
+    val setTextToday: LiveData<String>
+        get() = _setTextToday
+
     init {
         _isChecked.value = pref.isChecked
+        _setTextDay.value = getTextDay()
+        _setTextUsername.value = "Abdhi"
+        _setTextToday.value = date
         getTask()
+    }
+
+    private fun getTextDay(): String {
+        val c = Calendar.getInstance()
+        return when (c.get(Calendar.HOUR_OF_DAY)) {
+            in 0..11 -> "Good Morning"
+            in 12..15 -> "Good Afternoon"
+            in 16..20 -> "Good Evening"
+            in 21..23 -> "Good Night"
+            else -> "Hello"
+        }
     }
 
     fun setAlarm(isChecked: Boolean) {

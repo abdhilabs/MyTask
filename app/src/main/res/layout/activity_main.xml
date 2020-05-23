@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -79,37 +80,39 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Morning, Abdhi"
             android:textColor="@color/greenColor"
             android:textSize="@dimen/text_18"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:setDay="@{viewmodel.setTextDay}"
+            app:setUsername="@{viewmodel.setTextUsername}"
+            tools:text="Morning, Abdhi" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_x2"
-            android:text="Today is Monday, 16 Mei 2020"
             android:textColor="@color/blueSkyColor"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:setTextToday="@{viewmodel.setTextToday}"
+            tools:text="Today is Monday, 16 Mei 2020" />
 
-        <Switch
+        <com.bitvale.switcher.SwitcherX
             android:id="@+id/turnNotification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_x2"
             android:layout_marginEnd="@dimen/space_x2"
-            android:checked="@{viewmodel.isChecked()}"
-            android:onCheckedChanged="@{(button, on)-> viewmodel.setAlarm(on)}"
             android:switchPadding="@dimen/space_x1"
-            android:text="Notification"
             android:textColor="@color/blueSkyColor"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:switcher_off_color="@color/redColor"
+            app:switcher_on_color="@color/greenColor" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

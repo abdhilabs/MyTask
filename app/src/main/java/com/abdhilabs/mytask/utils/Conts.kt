@@ -6,3 +6,4 @@ const val MORNING_NOTIFICATION = "Morning"
 
 const val PREF_NAME = "com.abdhilabs.mytask.pref"
 const val SP_ISCHECKED = "isChecked"
+const val SP_USERNAME = "sp_username"

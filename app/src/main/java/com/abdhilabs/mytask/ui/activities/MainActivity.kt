@@ -1,9 +1,6 @@
 package com.abdhilabs.mytask.ui.activities
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.graphics.Color
-import android.os.Build
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -33,8 +30,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         binding.activity = this
         binding.viewmodel = viewmodel
         taskAdapter = TaskAdapter()
-        binding.rvTask.adapter = taskAdapter
         initSwipe()
+        with(binding) {
+            rvTask.adapter = taskAdapter
+            turnNotification.setOnCheckedChangeListener { isChecked ->
+                viewmodel!!.setAlarm(isChecked)
+            }
+            viewmodel!!.isChecked.observe(this@MainActivity, Observer {
+                turnNotification.setChecked(it)
+            })
+        }
     }
 
     private fun initSwipe() {

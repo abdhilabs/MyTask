@@ -13,9 +13,9 @@ import java.util.*
 
 private const val NOTIFICATION_ID = 0
 private val REQUEST_CODE = 0
-private val FLAGS = 0
 
 fun setupNotification(app: Application) {
+    app.toast(app.resources.getString(R.string.message_switcher_on))
     val notifyIntent = Intent(app, TaskReceiver::class.java)
     val alarmManager = app.getSystemService(Context.ALARM_SERVICE) as AlarmManager
     App.pref.isChecked = true
@@ -60,6 +60,7 @@ fun setupNotification(app: Application) {
 }
 
 fun cancelNotification(app: Application) {
+    app.toast(app.resources.getString(R.string.message_switcher_off))
     val notifyIntent = Intent(app, TaskReceiver::class.java)
     val alarmManager = app.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 

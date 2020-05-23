@@ -26,6 +26,16 @@ fun bindTaskRecyclerView(recyclerView: RecyclerView, task: List<Task>?) {
     }
 }
 
+@BindingAdapter("setDay", "setUsername")
+fun TextView.setName(time: String, name: String) {
+    text = resources.getString(R.string.text_name, time, name)
+}
+
+@BindingAdapter("setTextToday")
+fun TextView.setDate(date: String) {
+    text = resources.getString(R.string.text_today, date)
+}
+
 @BindingAdapter("isLayoutEmpty")
 fun bindLayoutIsEmpty(layout: LinearLayout, isEmpty: Boolean) {
     if (isEmpty) {

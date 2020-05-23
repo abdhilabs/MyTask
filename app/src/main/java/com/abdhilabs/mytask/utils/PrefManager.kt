@@ -20,4 +20,8 @@ class PrefManager(context: Context) {
     var isChecked: Boolean
         get() = sp.getBoolean(SP_ISCHECKED, false)
         set(value) = spe.putBoolean(SP_ISCHECKED, value).apply()
+
+    var username: String?
+        get() = sp.getString(SP_USERNAME, "")
+        set(value) = spe.putString(SP_USERNAME, value).apply()
 }
