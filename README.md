@@ -3,6 +3,11 @@ My Task adalah aplikasi pencatatan tugas sederhana dengan stack MVVM, Coroutine,
 
 ## - Still Development -
 
+### Screenshot
+<p align="left">
+<img src="https://github.com/abdhilabs/MyTask/blob/master/screenshot/SS1.jpeg" width="200" height="350" title="Main Page">
+</p>
+
 ### Library References
 1. MVVM
 2. Coroutines 
