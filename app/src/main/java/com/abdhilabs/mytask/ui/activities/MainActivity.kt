@@ -1,8 +1,11 @@
 package com.abdhilabs.mytask.ui.activities
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.graphics.Color
+import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.abdhilabs.mytask.R
 import com.abdhilabs.mytask.adapter.TaskAdapter

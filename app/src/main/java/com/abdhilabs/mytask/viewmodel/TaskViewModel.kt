@@ -1,16 +1,23 @@
 package com.abdhilabs.mytask.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.abdhilabs.mytask.App.Companion.pref
 import com.abdhilabs.mytask.data.model.Task
 import com.abdhilabs.mytask.data.repository.TaskRepository
+import com.abdhilabs.mytask.utils.cancelNotification
+import com.abdhilabs.mytask.utils.setupNotification
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class TaskViewModel @Inject constructor(private val repo: TaskRepository) : ViewModel() {
+class TaskViewModel @Inject constructor(
+    private val repo: TaskRepository,
+    private val app: Application
+) : AndroidViewModel(app) {
 
     private val _task = MutableLiveData<List<Task>?>()
 
@@ -22,8 +29,21 @@ class TaskViewModel @Inject constructor(private val repo: TaskRepository) : View
     val isEmpty: LiveData<Boolean>
         get() = _isEmpty
 
+    private val _isChecked = MutableLiveData<Boolean>()
+
+    val isChecked: LiveData<Boolean>
+        get() = _isChecked
+
     init {
+        _isChecked.value = pref.isChecked
         getTask()
+    }
+
+    fun setAlarm(isChecked: Boolean) {
+        when (isChecked) {
+            true -> setupNotification(app)
+            false -> cancelNotification(app)
+        }
     }
 
     private fun getTask() = viewModelScope.launch {
@@ -44,4 +64,6 @@ class TaskViewModel @Inject constructor(private val repo: TaskRepository) : View
     fun deleteTask(task: Task) = viewModelScope.launch {
         repo.deleteTask(task)
     }
+
+
 }

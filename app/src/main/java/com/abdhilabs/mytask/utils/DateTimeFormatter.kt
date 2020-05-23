@@ -6,7 +6,7 @@ import java.util.*
 object DateTimeFormatter {
 
     private val dateOutput = SimpleDateFormat("EEEE, dd MMMM yyyy", Locale("in", "ID"))
-    private val timeOutput = SimpleDateFormat("HH:mm", Locale("in", "ID"))
+    val timeOutput = SimpleDateFormat("HH:mm:ss", Locale("in", "ID"))
 
     fun getCurrent(): String {
         val date = Date()
