@@ -55,7 +55,6 @@ class TaskViewModel @Inject constructor(
         _setTextUsername.value = "Abdhi"
         _setTextToday.value = date
         getTask()
-        Toast.makeText(app, "Run", Toast.LENGTH_SHORT).show()
     }
 
     private fun getTextDay(): String {

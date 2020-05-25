@@ -10,7 +10,7 @@
             type="com.abdhilabs.mytask.data.model.Task" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_x2"
@@ -18,7 +18,9 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardCornerRadius="@dimen/space_x1">
+        app:cardBackgroundColor="@color/whiteColor"
+        app:cardCornerRadius="@dimen/space_x1"
+        app:cardElevation="@dimen/space_half">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -84,6 +86,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </layout>

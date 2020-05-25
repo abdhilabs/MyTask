@@ -34,14 +34,15 @@
             app:listTask="@{viewmodel.task}" />
 
 
-        <Button
-            android:layout_width="@dimen/space_x16"
-            android:layout_height="wrap_content"
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/space_x6_half"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/bg_rounded_button"
+            android:backgroundTint="@color/greenColor"
             android:onClick="@{() -> activity.onAddButtonClicked()}"
             android:text="Add New Task"
             android:textColor="@color/whiteColor"
+            app:cornerRadius="@dimen/space_x2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

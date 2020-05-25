@@ -2,10 +2,6 @@ package com.abdhilabs.mytask.ui.fragment
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.graphics.Color
-import android.os.Build
 import com.abdhilabs.mytask.R
 import com.abdhilabs.mytask.base.BaseDialogFragment
 import com.abdhilabs.mytask.data.model.Task
@@ -38,7 +34,8 @@ class TaskFragment : BaseDialogFragment<BottomSheetTaskBinding>() {
             requireContext(),
             R.style.CalendarDialog,
             DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                val date = DateTimeFormatter.getDateFromString("$dayOfMonth-${monthOfYear+1}-$year")
+                val date =
+                    DateTimeFormatter.getDateFromString("$dayOfMonth-${monthOfYear + 1}-$year")
                 binding.etDeadline.setText(date)
             },
             years,
@@ -46,7 +43,6 @@ class TaskFragment : BaseDialogFragment<BottomSheetTaskBinding>() {
             day
         )
         datePicker.show()
-
     }
 
     fun onBtnSaveClicked() {
