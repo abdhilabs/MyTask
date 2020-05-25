@@ -1,6 +1,5 @@
 package com.abdhilabs.mytask.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -15,6 +14,9 @@ class TaskAdapter : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         fun bind(task: Task) {
             binding.task = task
+            binding.setItemClickListener {
+                onItemClickListener?.let { it(task) }
+            }
         }
     }
 
@@ -41,7 +43,6 @@ class TaskAdapter : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val task = differ.currentList[position]
         holder.bind(task)
-        holder.itemView.setOnClickListener { onItemClickListener?.let { it(task) } }
     }
 
     fun moveItem(from: Int, to: Int) {

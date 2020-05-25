@@ -6,8 +6,13 @@
     <data>
 
         <variable
+            name="itemClickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
             name="task"
             type="com.abdhilabs.mytask.data.model.Task" />
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -26,15 +31,16 @@
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="@{itemClickListener}"
             app:onLayoutDateDeadline="@{task.deadline}">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imgIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginStart="@dimen/space_x2"
+                android:layout_marginTop="@dimen/space_x2"
+                android:layout_marginBottom="@dimen/space_x2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -48,7 +54,7 @@
                 android:layout_marginStart="@dimen/space_x1"
                 android:layout_marginEnd="@dimen/space_x1"
                 android:text="@{task.title}"
-                android:textColor="#71C2FF"
+                android:textColor="@color/blueSkyColor"
                 android:textSize="@dimen/text_18"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/message_deadline_passed"
                 android:textColor="@color/whiteColor"
-                android:textSize="18sp"
+                android:textSize="@dimen/text_18"
                 android:textStyle="bold"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"

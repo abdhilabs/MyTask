@@ -9,9 +9,11 @@ import com.abdhilabs.mytask.adapter.TaskAdapter
 import com.abdhilabs.mytask.base.BaseActivity
 import com.abdhilabs.mytask.databinding.ActivityMainBinding
 import com.abdhilabs.mytask.di.injector
+import com.abdhilabs.mytask.ui.fragment.DetailFragment
 import com.abdhilabs.mytask.ui.fragment.TaskFragment
 import com.abdhilabs.mytask.utils.snackbar
 import com.abdhilabs.mytask.viewmodel.TaskViewModel
+import com.google.android.material.snackbar.BaseTransientBottomBar
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
@@ -26,6 +28,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun resourceLayoutId(): Int = R.layout.activity_main
 
     override fun initView() {
+        bottomSheet = TaskFragment(null)
         binding.lifecycleOwner = this
         binding.activity = this
         binding.viewmodel = viewmodel
@@ -39,6 +42,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             viewmodel!!.isChecked.observe(this@MainActivity, Observer {
                 turnNotification.setChecked(it)
             })
+            viewmodel!!.messageSuccess.observe(this@MainActivity, Observer { msg ->
+                binding.root.snackbar(msg)
+            })
+        }
+        taskAdapter.setOnItemClickListener { task ->
+            val dialog = DetailFragment(task)
+            dialog.show(supportFragmentManager, dialog.tag)
         }
     }
 
@@ -60,6 +70,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 val task = taskAdapter.differ.currentList[position]
                 viewmodel.deleteTask(task)
                 binding.root.snackbar("Successfully deleted task").apply {
+                    duration = BaseTransientBottomBar.LENGTH_LONG
                     setAction("Undo") {
                         viewmodel.saveTask(task)
                         if (position < 1) taskAdapter.notifyDataSetChanged()
@@ -74,7 +85,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     fun onAddButtonClicked() {
-        bottomSheet = TaskFragment()
         bottomSheet.show(supportFragmentManager, bottomSheet.tag)
     }
 }

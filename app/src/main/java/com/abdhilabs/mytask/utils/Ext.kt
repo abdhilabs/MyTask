@@ -13,7 +13,7 @@ fun Context.toast(msg: String): Toast = Toast.makeText(this, msg, Toast.LENGTH_S
     show()
 }
 
-fun View.snackbar(msg: String) = Snackbar.make(this, msg, Snackbar.LENGTH_LONG).apply {
+fun View.snackbar(msg: String?) = Snackbar.make(this, msg.toString(), Snackbar.LENGTH_SHORT).apply {
     view.setBackgroundColor(resources.getColor(R.color.redColor, null))
     show()
 }

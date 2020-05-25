@@ -2,7 +2,6 @@ package com.abdhilabs.mytask.di.module
 
 import android.app.Application
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.abdhilabs.mytask.data.repository.TaskRepository
 import com.abdhilabs.mytask.db.AppDatabase
 import com.abdhilabs.mytask.db.TaskDao

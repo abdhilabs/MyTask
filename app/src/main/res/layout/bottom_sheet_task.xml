@@ -124,7 +124,7 @@
                 android:layout_marginBottom="@dimen/space_x5"
                 android:backgroundTint="@color/greenColor"
                 android:onClick="@{()-> fragment.onBtnSaveClicked()}"
-                android:text="Save Task"
+                android:text="@string/str_save_task"
                 android:textColor="@color/whiteColor"
                 app:cornerRadius="@dimen/space_x2"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.abdhilabs.mytask.ui.fragment.DetailFragment" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/lightWhiteColor"
+        app:cardCornerRadius="@dimen/space_x1">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvDialogTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_x2"
+                android:layout_marginTop="@dimen/space_x2"
+                android:layout_marginEnd="@dimen/space_x2"
+                android:drawableStart="@drawable/ic_edit"
+                android:textAlignment="textStart"
+                android:textColor="@color/greenColor"
+                android:textSize="@dimen/text_32"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Tugas PWEB" />
+
+            <TextView
+                android:id="@+id/tvDialogDeadline"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_x2"
+                android:layout_marginTop="@dimen/space_x2"
+                android:layout_marginEnd="@dimen/space_x2"
+                android:textColor="@color/redColor"
+                android:textSize="@dimen/text_18"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDialogTitle"
+                tools:text="Deadline : Minggu, 8 Juli 2020" />
+
+            <TextView
+                android:id="@+id/tvDialogDesc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_x2"
+                android:layout_marginTop="@dimen/space_x1"
+                android:layout_marginEnd="@dimen/space_x2"
+                android:textColor="@color/greenColor"
+                android:textSize="@dimen/text_18"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDialogDeadline"
+                tools:text="Deskripsi : Mengerjakan bab 1" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/space_x6_half"
+                android:layout_marginTop="@dimen/space_x4"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="@dimen/space_x2"
+                android:backgroundTint="@color/greenColor"
+                android:onClick="@{() -> fragment.onEditButtonClicked()}"
+                android:text="@string/str_edit_task"
+                android:textColor="@color/whiteColor"
+                app:cornerRadius="@dimen/space_x1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDialogDesc" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

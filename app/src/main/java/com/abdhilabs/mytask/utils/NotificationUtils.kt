@@ -9,6 +9,7 @@ import androidx.core.app.NotificationCompat
 import com.abdhilabs.mytask.App
 import com.abdhilabs.mytask.R
 import com.abdhilabs.mytask.receiver.TaskReceiver
+import com.abdhilabs.mytask.ui.activities.MainActivity
 import java.util.*
 
 private const val NOTIFICATION_ID = 0
@@ -77,6 +78,14 @@ fun cancelNotification(app: Application) {
 fun NotificationManager.sendNotification(messageBody: String, applicationContext: Context) {
     val channelId = applicationContext.resources.getString(R.string.channel_id)
     val channelName = applicationContext.resources.getString(R.string.channel_name)
+    val contentIntent = Intent(applicationContext, MainActivity::class.java)
+
+    val contentPendingIntent = PendingIntent.getActivity(
+        applicationContext,
+        NOTIFICATION_ID,
+        contentIntent,
+        PendingIntent.FLAG_UPDATE_CURRENT
+    )
 
     val builder = NotificationCompat.Builder(
         applicationContext,
@@ -85,6 +94,8 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
         .setSmallIcon(R.drawable.ic_document)
         .setContentTitle("Check your task now")
         .setContentText(messageBody)
+        .setContentIntent(contentPendingIntent)
+        .setAutoCancel(true)
 
     // Create Notification Channel
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

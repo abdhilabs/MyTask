@@ -21,7 +21,6 @@
         <receiver
             android:name=".receiver.TaskReceiver"
             android:enabled="true"
-            android:exported="false">
-        </receiver>
+            android:exported="false"></receiver>
     </application>
 </manifest>

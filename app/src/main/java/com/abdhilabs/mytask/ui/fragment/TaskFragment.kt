@@ -3,16 +3,15 @@ package com.abdhilabs.mytask.ui.fragment
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import com.abdhilabs.mytask.R
-import com.abdhilabs.mytask.base.BaseDialogFragment
+import com.abdhilabs.mytask.base.BaseBottomSheetDialogFragment
 import com.abdhilabs.mytask.data.model.Task
 import com.abdhilabs.mytask.databinding.BottomSheetTaskBinding
 import com.abdhilabs.mytask.ui.activities.MainActivity
 import com.abdhilabs.mytask.utils.DateTimeFormatter
 import com.abdhilabs.mytask.viewmodel.TaskViewModel
-import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
-class TaskFragment : BaseDialogFragment<BottomSheetTaskBinding>() {
+class TaskFragment(val task: Task?) : BaseBottomSheetDialogFragment<BottomSheetTaskBinding>() {
 
     private lateinit var viewmodel: TaskViewModel
 
@@ -22,6 +21,17 @@ class TaskFragment : BaseDialogFragment<BottomSheetTaskBinding>() {
         binding.lifecycleOwner = this
         binding.fragment = this
         viewmodel = (activity as MainActivity).viewmodel
+        initViewEdit()
+    }
+
+    private fun initViewEdit() {
+        if (task != null) {
+            with(binding) {
+                etTitle.setText(task.title)
+                etDeadline.setText(task.deadline)
+                etDescription.setText(task.desc)
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -47,10 +57,11 @@ class TaskFragment : BaseDialogFragment<BottomSheetTaskBinding>() {
 
     fun onBtnSaveClicked() {
         with(binding) {
+            val id = task?.id
             val title = etTitle.text.toString()
             val deadline = etDeadline.text.toString()
             val desc = etDescription.text.toString()
-            val task = Task(title = title, deadline = deadline, desc = desc)
+            val newTask = Task(title = title, deadline = deadline, desc = desc)
 
             if (title.isEmpty() || deadline.isEmpty() || desc.isEmpty()) when {
                 title.isEmpty() -> {
@@ -64,10 +75,13 @@ class TaskFragment : BaseDialogFragment<BottomSheetTaskBinding>() {
                 }
                 else -> null
             } else {
-                viewmodel.saveTask(task)
-                Snackbar.make(binding.root, "Successfully added new task", Snackbar.LENGTH_LONG)
-                    .show()
-                (activity as MainActivity).bottomSheet.dismiss()
+                if (task != null) {
+                    val updateTask = Task(id = id, title = title, deadline = deadline, desc = desc)
+                    viewmodel.updateTask(updateTask)
+                } else {
+                    viewmodel.saveTask(newTask)
+                }
+                dismiss()
             }
         }
     }

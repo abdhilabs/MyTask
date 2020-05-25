@@ -28,6 +28,10 @@ class TaskViewModel @Inject constructor(
     val task: LiveData<List<Task>?>
         get() = _task
 
+    private val _messageSuccess = MutableLiveData<String?>()
+    val messageSuccess: LiveData<String?>
+        get() = _messageSuccess
+
     private val _isEmpty = MutableLiveData<Boolean>()
     val isEmpty: LiveData<Boolean>
         get() = _isEmpty
@@ -87,6 +91,12 @@ class TaskViewModel @Inject constructor(
 
     fun saveTask(task: Task) = viewModelScope.launch {
         repo.insertTask(task)
+        _messageSuccess.value = "Successfully added new task"
+    }
+
+    fun updateTask(task: Task) = viewModelScope.launch {
+        repo.updateTask(task)
+        _messageSuccess.value = "Successfully edited task"
     }
 
     fun deleteTask(task: Task) = viewModelScope.launch {
