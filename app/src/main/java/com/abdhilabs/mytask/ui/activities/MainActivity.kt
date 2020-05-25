@@ -10,8 +10,8 @@ import com.abdhilabs.mytask.base.BaseActivity
 import com.abdhilabs.mytask.databinding.ActivityMainBinding
 import com.abdhilabs.mytask.di.injector
 import com.abdhilabs.mytask.ui.fragment.TaskFragment
+import com.abdhilabs.mytask.utils.snackbar
 import com.abdhilabs.mytask.viewmodel.TaskViewModel
-import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
@@ -59,14 +59,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 val position = viewHolder.adapterPosition
                 val task = taskAdapter.differ.currentList[position]
                 viewmodel.deleteTask(task)
-                Snackbar.make(binding.root, "Successfully deleted task", Snackbar.LENGTH_LONG)
-                    .apply {
-                        setAction("Undo") {
-                            viewmodel.saveTask(task)
-                            if (position < 1) taskAdapter.notifyDataSetChanged()
-                        }
-                        show()
+                binding.root.snackbar("Successfully deleted task").apply {
+                    setAction("Undo") {
+                        viewmodel.saveTask(task)
+                        if (position < 1) taskAdapter.notifyDataSetChanged()
                     }
+                }
             }
         }
 

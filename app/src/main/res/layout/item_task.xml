@@ -15,10 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_x2"
         android:layout_marginVertical="@dimen/space_x1"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="@color/whiteColor"
+        android:background="@drawable/bg_rounded_layout_white"
         app:cardCornerRadius="@dimen/space_x1"
         app:cardElevation="@dimen/space_half">
 
@@ -26,6 +23,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_rounded_layout_white"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             app:onLayoutDateDeadline="@{task.deadline}">
 
             <androidx.appcompat.widget.AppCompatImageView

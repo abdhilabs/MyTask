@@ -1,7 +1,6 @@
 package com.abdhilabs.mytask.viewmodel
 
 import android.app.Application
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -93,6 +92,4 @@ class TaskViewModel @Inject constructor(
     fun deleteTask(task: Task) = viewModelScope.launch {
         repo.deleteTask(task)
     }
-
-
 }
