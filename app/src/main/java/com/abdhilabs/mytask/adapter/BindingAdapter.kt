@@ -1,10 +1,8 @@
 package com.abdhilabs.mytask.adapter
 
-import android.view.View.GONE
-import android.view.View.VISIBLE
+import android.view.View.*
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
@@ -47,39 +45,73 @@ fun bindLayoutIsEmpty(layout: LinearLayout, isEmpty: Boolean) {
 
 @BindingAdapter("onLayoutDateDeadline")
 fun bindWarningLayout(layout: ConstraintLayout, dateDeadline: String?) {
-    if (isDeadlineToday(dateDeadline)) {
-        layout.setBackgroundResource(R.drawable.bg_rounded_layout_red)
-    } else {
-        layout.setBackgroundResource(R.drawable.bg_rounded_layout_white)
+    when {
+        isDeadlineToday(dateDeadline) -> {
+            layout.setBackgroundResource(R.drawable.bg_rounded_layout_red)
+        }
+        isDeadlineHasPassed(dateDeadline) -> {
+            layout.setBackgroundResource(R.drawable.bg_rounded_layout_red)
+        }
+        else -> {
+            layout.setBackgroundResource(R.drawable.bg_rounded_layout_white)
+        }
     }
 }
 
 @BindingAdapter("onIconDateDeadline")
 fun bindWarningIcon(imageView: AppCompatImageView, dateDeadline: String?) {
-    if (isDeadlineToday(dateDeadline)) {
-        imageView.setBackgroundResource(R.drawable.ic_clock_alert)
-    } else {
-        imageView.setBackgroundResource(R.drawable.ic_document)
+    when {
+        isDeadlineToday(dateDeadline) -> {
+            imageView.setBackgroundResource(R.drawable.ic_clock_alert)
+        }
+        isDeadlineHasPassed(dateDeadline) -> {
+            imageView.visibility = INVISIBLE
+        }
+        else -> {
+            imageView.setBackgroundResource(R.drawable.ic_document)
+        }
     }
 }
 
 @BindingAdapter("onTextTitleDateDeadline")
 fun bindWarningTitleText(textView: TextView, dateDeadline: String?) {
-    if (isDeadlineToday(dateDeadline)) {
-        textView.setTextColor(textView.resources.getColor(R.color.whiteColor, null))
-    } else {
-        textView.setTextColor(textView.resources.getColor(R.color.blueSkyColor, null))
+    when {
+        isDeadlineToday(dateDeadline) -> {
+            textView.setTextColor(textView.resources.getColor(R.color.whiteColor, null))
+        }
+        isDeadlineHasPassed(dateDeadline) -> {
+            textView.visibility = INVISIBLE
+        }
+        else -> {
+            textView.setTextColor(textView.resources.getColor(R.color.blueSkyColor, null))
+        }
     }
 }
 
 @BindingAdapter("onTextSubTitleDateDeadline")
 fun bindWarningSubTitleText(textView: TextView, dateDeadline: String?) {
-    if (isDeadlineToday(dateDeadline)) {
-        textView.text = textView.resources.getString(R.string.text_deadline, dateDeadline)
+    when {
+        isDeadlineToday(dateDeadline) -> {
+            textView.text = textView.resources.getString(R.string.text_deadline, dateDeadline)
+            textView.setTextColor(textView.resources.getColor(R.color.whiteColor, null))
+        }
+        isDeadlineHasPassed(dateDeadline) -> {
+            textView.visibility = INVISIBLE
+        }
+        else -> {
+            textView.text = textView.resources.getString(R.string.text_deadline, dateDeadline)
+            textView.setTextColor(textView.resources.getColor(R.color.redColor, null))
+        }
+    }
+}
+
+@BindingAdapter("onTextDeadlinePassed")
+fun bindWarningDeadlinePassedText(textView: TextView, dateDeadline: String?) {
+    if (isDeadlineHasPassed(dateDeadline)) {
+        textView.visibility = VISIBLE
         textView.setTextColor(textView.resources.getColor(R.color.whiteColor, null))
     } else {
-        textView.text = textView.resources.getString(R.string.text_deadline, dateDeadline)
-        textView.setTextColor(textView.resources.getColor(R.color.redColor, null))
+        textView.visibility = INVISIBLE
     }
 }
 
@@ -90,6 +122,17 @@ private fun isDeadlineToday(dateDeadline: String?): Boolean {
         val formatToday = DateTimeFormatter.getCurrent()
         val today = format.parse(formatToday)!!.time
         return deadline == today
+    }
+    return false
+}
+
+private fun isDeadlineHasPassed(dateDeadline: String?): Boolean {
+    val format = SimpleDateFormat("EEEE, dd MMMM yyyy", Locale("in", "ID"))
+    if (dateDeadline != null) {
+        val deadline = format.parse(dateDeadline)!!.time
+        val formatToday = DateTimeFormatter.getCurrent()
+        val today = format.parse(formatToday)!!.time
+        return deadline != today && deadline < today
     }
     return false
 }
