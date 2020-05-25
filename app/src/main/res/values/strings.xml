@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">My Task</string>
 
+    <string name="str_today">TODAY</string>
+
     <string name="text_name">%1$s, %2$s</string>
     <string name="text_today">Today is %1$s</string>
     <string name="text_deadline">Deadline : %1$s</string>
@@ -10,4 +12,6 @@
 
     <string name="message_switcher_on">Kamu mengaktifkan notifikasi</string>
     <string name="message_switcher_off">Kamu menonaktifkan notifikasi</string>
+
+    <string name="message_deadline_passed">Deadline has passed, click for detail</string>
 </resources>

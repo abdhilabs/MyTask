@@ -68,10 +68,11 @@
                 tools:text="Deadline : 8 Juni 2020" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/tvDeadlinePassed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Deadline has passed, click for detail"
+                android:text="@string/message_deadline_passed"
+                android:textColor="@color/whiteColor"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:visibility="invisible"

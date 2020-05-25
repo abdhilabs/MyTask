@@ -32,13 +32,13 @@ class TaskFragment : BaseDialogFragment<BottomSheetTaskBinding>() {
     fun onPickDateClicked() {
         val c = Calendar.getInstance()
         val years = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH) + 1
+        val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
         val datePicker = DatePickerDialog(
             requireContext(),
             R.style.CalendarDialog,
             DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                val date = DateTimeFormatter.getDateFromString("$dayOfMonth-$monthOfYear-$year")
+                val date = DateTimeFormatter.getDateFromString("$dayOfMonth-${monthOfYear+1}-$year")
                 binding.etDeadline.setText(date)
             },
             years,

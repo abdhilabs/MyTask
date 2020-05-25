@@ -92,7 +92,10 @@ fun bindWarningTitleText(textView: TextView, dateDeadline: String?) {
 fun bindWarningSubTitleText(textView: TextView, dateDeadline: String?) {
     when {
         isDeadlineToday(dateDeadline) -> {
-            textView.text = textView.resources.getString(R.string.text_deadline, dateDeadline)
+            textView.text = textView.resources.getString(
+                R.string.text_deadline,
+                textView.resources.getString(R.string.str_today)
+            )
             textView.setTextColor(textView.resources.getColor(R.color.whiteColor, null))
         }
         isDeadlineHasPassed(dateDeadline) -> {
@@ -109,7 +112,6 @@ fun bindWarningSubTitleText(textView: TextView, dateDeadline: String?) {
 fun bindWarningDeadlinePassedText(textView: TextView, dateDeadline: String?) {
     if (isDeadlineHasPassed(dateDeadline)) {
         textView.visibility = VISIBLE
-        textView.setTextColor(textView.resources.getColor(R.color.whiteColor, null))
     } else {
         textView.visibility = INVISIBLE
     }
