@@ -1,6 +1,7 @@
 package com.abdhilabs.mytask.viewmodel
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -54,6 +55,7 @@ class TaskViewModel @Inject constructor(
         _setTextUsername.value = "Abdhi"
         _setTextToday.value = date
         getTask()
+        Toast.makeText(app, "Run", Toast.LENGTH_SHORT).show()
     }
 
     private fun getTextDay(): String {

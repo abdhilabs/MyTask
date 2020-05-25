@@ -6,10 +6,6 @@
     <data>
 
         <variable
-            name="adapter"
-            type="com.abdhilabs.mytask.adapter.TaskAdapter" />
-
-        <variable
             name="task"
             type="com.abdhilabs.mytask.data.model.Task" />
     </data>

@@ -63,6 +63,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     .apply {
                         setAction("Undo") {
                             viewmodel.saveTask(task)
+                            if (position < 1) taskAdapter.notifyDataSetChanged()
                         }
                         show()
                     }

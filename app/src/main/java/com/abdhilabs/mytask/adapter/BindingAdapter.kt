@@ -4,6 +4,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
@@ -19,7 +20,6 @@ fun bindTaskRecyclerView(recyclerView: RecyclerView, task: List<Task>?) {
     val adapter = recyclerView.adapter as TaskAdapter
     if (task != null) {
         adapter.differ.submitList(task)
-        adapter.notifyDataSetChanged()
         recyclerView.visibility = VISIBLE
     } else {
         recyclerView.visibility = GONE

@@ -13,10 +13,8 @@ class TaskAdapter : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemTaskBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        @SuppressLint("SetTextI18n")
         fun bind(task: Task) {
             binding.task = task
-            binding.adapter = TaskAdapter()
         }
     }
 
