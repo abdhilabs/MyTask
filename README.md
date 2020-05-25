@@ -7,6 +7,7 @@ My Task adalah aplikasi pencatatan tugas sederhana dengan stack MVVM, Coroutine,
 <p align="left">
 <img src="https://github.com/abdhilabs/MyTask/blob/master/screenshot/SS1.jpeg" width="200" height="350" title="Main Page 1">
 <img src="https://github.com/abdhilabs/MyTask/blob/master/screenshot/SS2.jpeg" width="200" height="350" title="Main Page 2">
+<img src="https://github.com/abdhilabs/MyTask/blob/master/screenshot/SS3.jpeg" width="200" height="350" title="Main Page 3">
 </p>
 
 ### Library References
