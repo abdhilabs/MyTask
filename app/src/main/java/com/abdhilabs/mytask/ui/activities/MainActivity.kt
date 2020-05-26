@@ -9,8 +9,8 @@ import com.abdhilabs.mytask.adapter.TaskAdapter
 import com.abdhilabs.mytask.base.BaseActivity
 import com.abdhilabs.mytask.databinding.ActivityMainBinding
 import com.abdhilabs.mytask.di.injector
+import com.abdhilabs.mytask.ui.fragment.AddTaskFragment
 import com.abdhilabs.mytask.ui.fragment.DetailFragment
-import com.abdhilabs.mytask.ui.fragment.TaskFragment
 import com.abdhilabs.mytask.utils.snackbar
 import com.abdhilabs.mytask.viewmodel.TaskViewModel
 import com.google.android.material.snackbar.BaseTransientBottomBar
@@ -21,14 +21,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         ViewModelProvider(this, injector.taskViewModelFactory())[TaskViewModel::class.java]
     }
 
-    lateinit var bottomSheet: TaskFragment
-
     private lateinit var taskAdapter: TaskAdapter
 
     override fun resourceLayoutId(): Int = R.layout.activity_main
 
     override fun initView() {
-        bottomSheet = TaskFragment(null)
         binding.lifecycleOwner = this
         binding.activity = this
         binding.viewmodel = viewmodel
@@ -85,6 +82,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     fun onAddButtonClicked() {
+        val bottomSheet = AddTaskFragment(null)
         bottomSheet.show(supportFragmentManager, bottomSheet.tag)
     }
 }

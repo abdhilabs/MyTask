@@ -5,17 +5,18 @@ import android.app.DatePickerDialog
 import com.abdhilabs.mytask.R
 import com.abdhilabs.mytask.base.BaseBottomSheetDialogFragment
 import com.abdhilabs.mytask.data.model.Task
-import com.abdhilabs.mytask.databinding.BottomSheetTaskBinding
+import com.abdhilabs.mytask.databinding.BottomSheetAddTaskBinding
 import com.abdhilabs.mytask.ui.activities.MainActivity
 import com.abdhilabs.mytask.utils.DateTimeFormatter
 import com.abdhilabs.mytask.viewmodel.TaskViewModel
 import java.util.*
 
-class TaskFragment(val task: Task?) : BaseBottomSheetDialogFragment<BottomSheetTaskBinding>() {
+class AddTaskFragment(var task: Task?) :
+    BaseBottomSheetDialogFragment<BottomSheetAddTaskBinding>() {
 
     private lateinit var viewmodel: TaskViewModel
 
-    override fun layoutResourceId(): Int = R.layout.bottom_sheet_task
+    override fun layoutResourceId(): Int = R.layout.bottom_sheet_add_task
 
     override fun initViewCreated() {
         binding.lifecycleOwner = this
@@ -27,9 +28,9 @@ class TaskFragment(val task: Task?) : BaseBottomSheetDialogFragment<BottomSheetT
     private fun initViewEdit() {
         if (task != null) {
             with(binding) {
-                etTitle.setText(task.title)
-                etDeadline.setText(task.deadline)
-                etDescription.setText(task.desc)
+                etTitle.setText(task?.title)
+                etDeadline.setText(task?.deadline)
+                etDescription.setText(task?.desc)
             }
         }
     }
@@ -82,6 +83,7 @@ class TaskFragment(val task: Task?) : BaseBottomSheetDialogFragment<BottomSheetT
                     viewmodel.saveTask(newTask)
                 }
                 dismiss()
+                task = null
             }
         }
     }

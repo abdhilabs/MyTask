@@ -7,15 +7,11 @@ import com.abdhilabs.mytask.base.BaseDialogFragment
 import com.abdhilabs.mytask.data.model.Task
 import com.abdhilabs.mytask.databinding.ItemDialogTaskInfoBinding
 
-
 class DetailFragment(val task: Task) : BaseDialogFragment<ItemDialogTaskInfoBinding>() {
-
-    lateinit var bottomSheet: TaskFragment
 
     override fun layoutResourceId(): Int = R.layout.item_dialog_task_info
 
     override fun initViewCreated() {
-        bottomSheet = TaskFragment(task)
         binding.lifecycleOwner = this
         binding.fragment = this
         with(binding) {
@@ -35,6 +31,7 @@ class DetailFragment(val task: Task) : BaseDialogFragment<ItemDialogTaskInfoBind
     }
 
     fun onEditButtonClicked() {
+        val bottomSheet = AddTaskFragment(task)
         bottomSheet.show(requireFragmentManager(), bottomSheet.tag)
         this.dismiss()
     }

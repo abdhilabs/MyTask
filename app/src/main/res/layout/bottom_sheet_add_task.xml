@@ -6,7 +6,7 @@
 
         <variable
             name="fragment"
-            type="com.abdhilabs.mytask.ui.fragment.TaskFragment" />
+            type="com.abdhilabs.mytask.ui.fragment.AddTaskFragment" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
