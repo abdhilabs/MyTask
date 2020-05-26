@@ -5,7 +5,10 @@ ext {
             lifecycle: '2.2.0',
             material : '1.0.0',
             dagger   : '2.27',
-            switcher : '1.1.0'
+            switcher : '1.1.0',
+            analytics: '17.4.0',
+            messaging: '20.1.6',
+            perf     : '19.0.7'
     ]
 
     coreDependencies = [
@@ -51,6 +54,12 @@ ext {
 
     customDependencies = [
             switcher: "com.bitvale:switcher:$versions.switcher"
+    ]
+
+    firebaseDependencies = [
+            analytics  : "com.google.firebase:firebase-analytics:$versions.analytics",
+            messaging  : "com.google.firebase:firebase-messaging:$versions.messaging",
+            performance: "com.google.firebase:firebase-perf:$versions.perf"
     ]
 
     appDependencies = [

@@ -31,6 +31,8 @@ android {
     }
 }
 apply from: '../libraries.gradle'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.firebase-perf'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 

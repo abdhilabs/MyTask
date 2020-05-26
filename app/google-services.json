@@ -1,0 +1,86 @@
+{
+  "project_info": {
+    "project_number": "373518838236",
+    "firebase_url": "https://ads-a0059.firebaseio.com",
+    "project_id": "ads-a0059",
+    "storage_bucket": "ads-a0059.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:373518838236:android:962445e3e2bd51715d4719",
+        "android_client_info": {
+          "package_name": "com.abdhilabs.mytask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "373518838236-eeqbmbhecf0tul6n1b6jviqh1nn9oglp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYHz8fdzKOwpQ7tMSBaaiVCwh9u8Mj9ss"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "373518838236-eeqbmbhecf0tul6n1b6jviqh1nn9oglp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:373518838236:android:72ea3b6d4cb26320",
+        "android_client_info": {
+          "package_name": "com.mriksani.catatantugaspro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "373518838236-fpbiiqaj926grvbpec5i7mk9969lsq94.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mriksani.catatantugaspro",
+            "certificate_hash": "569caa51c88cc3a6d7417712b944f18aabb510a4"
+          }
+        },
+        {
+          "client_id": "373518838236-t7d52fvq3l9a872rqfe4qql0jdi49vkv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mriksani.catatantugaspro",
+            "certificate_hash": "b56f4f473d4722f54593ab5cc5a8a993342307bc"
+          }
+        },
+        {
+          "client_id": "373518838236-eeqbmbhecf0tul6n1b6jviqh1nn9oglp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYHz8fdzKOwpQ7tMSBaaiVCwh9u8Mj9ss"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "373518838236-eeqbmbhecf0tul6n1b6jviqh1nn9oglp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-1828706743315425~8320671551"
+    }
+  ],
+  "configuration_version": "1"
+}
