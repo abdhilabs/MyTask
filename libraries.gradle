@@ -30,7 +30,8 @@ ext {
 
     architecturalComponentDependencies = [
             lifecycle_viewmodel: "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle",
-            lifecycle_runtime  : "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle"
+            lifecycle_runtime  : "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle",
+            lifecycle_ext      : "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
     ]
 
     couroutineDependencies = [

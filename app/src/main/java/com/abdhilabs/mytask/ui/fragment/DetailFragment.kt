@@ -32,7 +32,7 @@ class DetailFragment(val task: Task) : BaseDialogFragment<ItemDialogTaskInfoBind
 
     fun onEditButtonClicked() {
         val bottomSheet = AddTaskFragment(task)
-        bottomSheet.show(requireFragmentManager(), bottomSheet.tag)
+        bottomSheet.show(childFragmentManager, bottomSheet.tag)
         this.dismiss()
     }
 }

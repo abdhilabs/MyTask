@@ -14,6 +14,12 @@
     <string name="channel_id">task_channel</string>
     <string name="channel_name">Task</string>
 
+    <string name="channel_foreground_id">foreground_channel</string>
+    <string name="channel_foreground_name">Foreground</string>
+
+    <string name="channel_fcm_id">fcm_channel</string>
+    <string name="channel_fcm_name">Firabase Cloud Messaging</string>
+
     <string name="message_switcher_on">Kamu mengaktifkan notifikasi</string>
     <string name="message_switcher_off">Kamu menonaktifkan notifikasi</string>
 

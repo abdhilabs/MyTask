@@ -4,16 +4,16 @@ import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.widget.Toast
+import android.os.Build
 import androidx.core.content.ContextCompat
-import com.abdhilabs.mytask.utils.DateTimeFormatter
-import com.abdhilabs.mytask.utils.MORNING_NOTIFICATION
-import com.abdhilabs.mytask.utils.sendNotification
+import com.abdhilabs.mytask.service.TaskService
+import com.abdhilabs.mytask.utils.*
 import java.util.*
 
 class TaskReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
+
         val notificationManager = ContextCompat.getSystemService(
             context!!,
             NotificationManager::class.java
@@ -22,33 +22,38 @@ class TaskReceiver : BroadcastReceiver() {
         val type = intent?.getStringExtra("type")
         val validateTime = intent?.getStringExtra("validateTime")
 
+        val notifyId = intent?.getStringExtra("notifyId")?.toInt()
+        val title = intent?.getStringExtra("title")
+        val deadline = intent?.getStringExtra("deadline")
+
         if (intent != null) {
             if (getTimeNow() == validateTime) {
-                if (type.equals(MORNING_NOTIFICATION)) {
-                    notificationManager.sendNotification("Skuyyy, check your task today!", context)
-                } else {
-                    Toast.makeText(context, "Not found", Toast.LENGTH_SHORT).show()
+                when {
+                    type.equals(DAILY_NOTIFICATION) -> {
+                        notificationManager.sendNotification(notifyId, title, deadline, context)
+                    }
+                    type.equals(FCM_NOTIFICATION) -> {
+                        notificationManager.sendNotificationFcm("Fcm Notification", context)
+                    }
+                    type.equals(UPDATE_NOTIFICATION) -> {
+                        val serviceIntent = Intent(context, TaskService::class.java)
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            context.startForegroundService(serviceIntent)
+                        } else {
+                            context.startService(serviceIntent)
+                        }
+                    }
                 }
             }
         }
     }
+}
 
-    private fun getTimeNow(): String {
-//        val dateTimeMillis = System.currentTimeMillis()
+private fun getTimeNow(): String {
+    val dateTimeMillis = System.currentTimeMillis()
 
-//        val calendar = Calendar.getInstance()
-//        calendar.timeInMillis = dateTimeMillis
-        val morning = "07:00"
-        val splitTime = morning.split(":")
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = dateTimeMillis
 
-        val calendar = Calendar.getInstance().apply {
-            timeInMillis = System.currentTimeMillis()
-            set(Calendar.HOUR_OF_DAY, splitTime[0].toInt())
-            set(Calendar.MINUTE, splitTime[1].toInt())
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-        }
-
-        return DateTimeFormatter.timeOutput.format(calendar.time)
-    }
+    return DateTimeFormatter.timeOutput.format(calendar.time)
 }

@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.abdhilabs.mytask.App.Companion.pref
 import com.abdhilabs.mytask.data.model.Task
 import com.abdhilabs.mytask.data.repository.TaskRepository
 import com.abdhilabs.mytask.utils.DateTimeFormatter
@@ -36,10 +35,6 @@ class TaskViewModel @Inject constructor(
     val isEmpty: LiveData<Boolean>
         get() = _isEmpty
 
-    private val _isChecked = MutableLiveData<Boolean>()
-    val isChecked: LiveData<Boolean>
-        get() = _isChecked
-
     private val _setTextDay = MutableLiveData<String>()
     val setTextDay: LiveData<String>
         get() = _setTextDay
@@ -53,7 +48,6 @@ class TaskViewModel @Inject constructor(
         get() = _setTextToday
 
     init {
-        _isChecked.value = pref.isChecked
         _setTextDay.value = getTextDay()
         _setTextUsername.value = "Abdhi"
         _setTextToday.value = date

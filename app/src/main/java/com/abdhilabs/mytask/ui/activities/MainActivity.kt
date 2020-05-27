@@ -4,6 +4,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.abdhilabs.mytask.App.Companion.pref
 import com.abdhilabs.mytask.R
 import com.abdhilabs.mytask.adapter.TaskAdapter
 import com.abdhilabs.mytask.base.BaseActivity
@@ -33,12 +34,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         initSwipe()
         with(binding) {
             rvTask.adapter = taskAdapter
+            turnNotification.setChecked(pref.isChecked)
             turnNotification.setOnCheckedChangeListener { isChecked ->
                 viewmodel!!.setAlarm(isChecked)
             }
-            viewmodel!!.isChecked.observe(this@MainActivity, Observer {
-                turnNotification.setChecked(it)
-            })
             viewmodel!!.messageSuccess.observe(this@MainActivity, Observer { msg ->
                 binding.root.snackbar(msg)
             })
