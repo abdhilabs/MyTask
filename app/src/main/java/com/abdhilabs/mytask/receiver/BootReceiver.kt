@@ -4,15 +4,15 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import com.abdhilabs.mytask.utils.setupNotification
 
 class BootReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        val serviceIntent = Intent(context, TaskReceiver::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context?.startForegroundService(serviceIntent)
+            context?.setupNotification()
         } else {
-            context?.startService(serviceIntent)
+            context?.setupNotification()
         }
     }
 }

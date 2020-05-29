@@ -1,6 +1,7 @@
 package com.abdhilabs.mytask.di.module
 
 import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import com.abdhilabs.mytask.data.repository.TaskRepository
 import com.abdhilabs.mytask.db.AppDatabase
@@ -15,8 +16,8 @@ object RoomModule {
     @JvmStatic
     @Provides
     @Singleton
-    fun provideRoomDb(application: Application): AppDatabase {
-        return Room.databaseBuilder(application, AppDatabase::class.java, "task.db")
+    fun provideRoomDb(applicationContext: Context): AppDatabase {
+        return Room.databaseBuilder(applicationContext, AppDatabase::class.java, "task.db")
             .build()
     }
 

@@ -1,10 +1,7 @@
 package com.abdhilabs.mytask.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.abdhilabs.mytask.data.model.Task
 import com.abdhilabs.mytask.data.repository.TaskRepository
 import com.abdhilabs.mytask.utils.DateTimeFormatter
@@ -16,9 +13,7 @@ import java.util.*
 import javax.inject.Inject
 
 class TaskViewModel @Inject constructor(
-    private val repo: TaskRepository,
-    private val app: Application
-) : AndroidViewModel(app) {
+    private val repo: TaskRepository) : ViewModel() {
 
     private val now = Calendar.getInstance()
     private val date = DateTimeFormatter.getDate(now.time)
@@ -65,12 +60,12 @@ class TaskViewModel @Inject constructor(
         }
     }
 
-    fun setAlarm(isChecked: Boolean) {
-        when (isChecked) {
-            true -> app.setupNotification()
-            false -> app.cancelNotification()
-        }
-    }
+//    fun setAlarm(isChecked: Boolean) {
+//        when (isChecked) {
+//            true -> app.setupNotification()
+//            false -> app.cancelNotification()
+//        }
+//    }
 
     private fun getTask() = viewModelScope.launch {
         repo.getTask().collect { data ->

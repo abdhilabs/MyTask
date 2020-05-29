@@ -31,4 +31,13 @@ object DateTimeFormatter {
         val dateInput = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
         return dateInput.parse(dateString)!!
     }
+
+    fun getTimeTimestamp(time: String): Calendar {
+        val splitTime = time.split(":")
+        val cal = Calendar.getInstance()
+        cal.set(Calendar.HOUR_OF_DAY, splitTime[0].toInt())
+        cal.set(Calendar.MINUTE, splitTime[1].toInt())
+        cal.set(Calendar.SECOND, 0)
+        return cal
+    }
 }

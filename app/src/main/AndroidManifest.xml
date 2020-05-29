@@ -27,7 +27,7 @@
             android:name=".receiver.TaskReceiver"
             android:enabled="true"
             android:exported="false"
-            android:process="com.abdhilabs.foreground"/>
+            android:process="com.abdhilabs.foreground" />
 
         <receiver
             android:name=".receiver.BootReceiver"
@@ -41,11 +41,5 @@
             </intent-filter>
         </receiver>
 
-        <service
-            android:name=".service.TaskService"
-            android:enabled="true"
-            android:exported="false"
-            android:process="com.abdhilabs.foreground"
-            android:stopWithTask="false" />
     </application>
 </manifest>

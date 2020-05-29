@@ -1,7 +1,7 @@
 package com.abdhilabs.mytask.di.module
 
-import androidx.lifecycle.LifecycleService
-import com.abdhilabs.mytask.service.TaskService
+import android.content.BroadcastReceiver
+import com.abdhilabs.mytask.receiver.TaskReceiver
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -11,7 +11,7 @@ class ServiceModule {
 
     @Provides
     @Singleton
-    fun provideService(service: TaskService): LifecycleService {
+    fun provideService(service: TaskReceiver): BroadcastReceiver {
         return service
     }
 }

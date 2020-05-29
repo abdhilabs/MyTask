@@ -4,52 +4,69 @@ import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import androidx.core.content.ContextCompat
-import com.abdhilabs.mytask.service.TaskService
+import com.abdhilabs.mytask.data.repository.TaskRepository
+import com.abdhilabs.mytask.di.component.DaggerAppComponent
 import com.abdhilabs.mytask.utils.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import java.util.*
+import javax.inject.Inject
 
 class TaskReceiver : BroadcastReceiver() {
 
-    override fun onReceive(context: Context?, intent: Intent?) {
+    @Inject
+    lateinit var repository: TaskRepository
+
+    private var job = Job()
+    private val coroutineScope = CoroutineScope(job + Dispatchers.IO)
+
+    override fun onReceive(context: Context, intent: Intent?) {
+        DaggerAppComponent.builder()
+            .applicationContext(context)
+            .build()
+            .inject(this)
 
         val notificationManager = ContextCompat.getSystemService(
-            context!!,
+            context,
             NotificationManager::class.java
         ) as NotificationManager
-        val type = intent?.getStringExtra("type")
-        val validateTime = intent?.getStringExtra("validateTime")
 
         val notifyId = intent?.getStringExtra("notifyId")?.toInt()
-        val title = intent?.getStringExtra("title")
-        val deadline = intent?.getStringExtra("deadline")
+        val type = intent?.getStringExtra("type")
+        val validateTime = intent?.getStringExtra("validateTime")
 
         if (intent != null) {
             if (getTimeNow() == validateTime) {
                 when {
                     type.equals(DAILY_NOTIFICATION) -> {
-                        if (title == "Empty") {
-                            notificationManager.sendNotification(notifyId, title, deadline, context)
-                        } else {
-                            notificationManager.sendNotification(
-                                notifyId,
-                                "You have task : $title",
-                                "The deadline is : $deadline",
-                                context
-                            )
+                        coroutineScope.launch {
+                            repository.getTask().collect { task ->
+                                if (task.isNotEmpty()) {
+                                    for (i in task.indices) {
+                                        notificationManager.createNotification(
+                                            notifyId,
+                                            "You have task : ${task[i].title}",
+                                            "The deadline is : ${task[i].deadline}",
+                                            context
+                                        )
+                                    }
+                                } else {
+                                    notificationManager.createNotification(
+                                        notifyId,
+                                        "Empty",
+                                        "You not have any task todo",
+                                        context
+                                    )
+                                }
+                            }
                         }
                     }
                     type.equals(FCM_NOTIFICATION) -> {
-                        notificationManager.sendNotificationFcm("Fcm Notification", context)
-                    }
-                    type.equals(UPDATE_NOTIFICATION) -> {
-                        val serviceIntent = Intent(context, TaskService::class.java)
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            context.startForegroundService(serviceIntent)
-                        } else {
-                            context.startService(serviceIntent)
-                        }
+                        notificationManager.createNotificationFcm("Fcm Notification", context)
                     }
                 }
             }
