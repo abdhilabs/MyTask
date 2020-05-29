@@ -1,5 +1,6 @@
 package com.abdhilabs.mytask.ui.activities
 
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -10,6 +11,7 @@ import com.abdhilabs.mytask.adapter.TaskAdapter
 import com.abdhilabs.mytask.base.BaseActivity
 import com.abdhilabs.mytask.databinding.ActivityMainBinding
 import com.abdhilabs.mytask.di.injector
+import com.abdhilabs.mytask.service.TaskService
 import com.abdhilabs.mytask.ui.fragment.AddTaskFragment
 import com.abdhilabs.mytask.ui.fragment.DetailFragment
 import com.abdhilabs.mytask.utils.snackbar
@@ -45,6 +47,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         taskAdapter.setOnItemClickListener { task ->
             val dialog = DetailFragment(task)
             dialog.show(supportFragmentManager, dialog.tag)
+        }
+        if (pref.isChecked) {
+            val serviceIntent = Intent(this, TaskService::class.java)
+            startService(serviceIntent)
         }
     }
 

@@ -1,10 +1,12 @@
 package com.abdhilabs.mytask.service
 
-import android.app.*
+import android.app.AlarmManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.os.Handler
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
@@ -25,7 +27,7 @@ import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
-private const val FOREGROUND_ID = 0
+private const val FOREGROUND_ID = 1
 private const val REQUEST_UPDATE_ID = 5
 
 
@@ -43,8 +45,6 @@ class TaskService : LifecycleService() {
             .applicationContext(application)
             .build()
             .inject(this)
-
-        getTaskUpdate()
         scheduleUpdate()
     }
 
@@ -56,7 +56,8 @@ class TaskService : LifecycleService() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
         foregroundSetup()
-        Handler().postDelayed({ stopSelf() }, 10000)
+        getTaskUpdate()
+        stopSelf()
         return START_STICKY
     }
 
@@ -71,7 +72,7 @@ class TaskService : LifecycleService() {
         val notification =
             NotificationCompat.Builder(this, getString(R.string.channel_foreground_id))
                 .setContentTitle("Pemberitahuan")
-                .setContentText("Anda mengaktifkan notifikasi pada jam tertentu")
+                .setContentText("Sedang memeriksa tugas anda")
                 .setSmallIcon(R.drawable.ic_document)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setContentIntent(pendingIntent)
@@ -95,21 +96,33 @@ class TaskService : LifecycleService() {
         )
         coroutineScope.launch {
             repository.getTask().collect { task ->
-                for (i in task.indices) {
-                    try {
-                        var index = 0
-                        alarmTime.forEach {
-                            val alarm = getTimeTimestamp(it)
-                            if (alarm.timeInMillis > System.currentTimeMillis()) {
+                if (task.isNotEmpty()) {
+                    for (i in task.indices) {
+                        try {
+                            var index = 0
+                            alarmTime.forEach {
+                                val alarm = getTimeTimestamp(it)
                                 setupNotification(
                                     index + i,
-                                    DAILY_NOTIFICATION, application, alarm, task[i]
+                                    DAILY_NOTIFICATION, alarm, task[i]
                                 )
+                                index++
                             }
-                            index++
+                        } catch (e: Exception) {
+                            e.printStackTrace()
                         }
-                    } catch (e: Exception) {
-                        e.printStackTrace()
+                    }
+                } else {
+                    var index = 0
+                    alarmTime.forEach {
+                        val alarm = getTimeTimestamp(it)
+                        setupNotification(
+                            index + 1,
+                            DAILY_NOTIFICATION,
+                            alarm,
+                            null
+                        )
+                        index++
                     }
                 }
             }
@@ -131,38 +144,36 @@ class TaskService : LifecycleService() {
         cal.set(Calendar.HOUR_OF_DAY, 23)
         cal.set(Calendar.MINUTE, 59)
         cal.set(Calendar.SECOND, 59)
-        setupNotification(REQUEST_UPDATE_ID, UPDATE_NOTIFICATION, application, cal, null)
+        setupNotification(REQUEST_UPDATE_ID, UPDATE_NOTIFICATION, cal, null)
     }
 
     private fun setupNotification(
         requestCode: Int,
         type: String,
-        app: Application,
         calendar: Calendar,
         task: Task?
     ) {
-        val notifyIntent = Intent(app, TaskReceiver::class.java)
-        val alarmManager = app.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val notifyIntent = Intent(applicationContext, TaskReceiver::class.java)
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         //Add Message here
         notifyIntent.also {
             it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             it.putExtra("notifyId", "$requestCode")
-            it.putExtra("title", "${task?.title}")
-            it.putExtra("deadline", "${task?.deadline}")
+            it.putExtra("title", task?.title ?: "Empty")
+            it.putExtra("deadline", task?.deadline ?: "You not have any task todo")
             it.putExtra("validateTime", DateTimeFormatter.timeOutput.format(calendar.time))
             it.putExtra("type", type)
         }
-
         val pendingIntent = PendingIntent.getBroadcast(
-            app,
+            applicationContext,
             10 + requestCode,
             notifyIntent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
 
         // For testing
-//        val selectedInterval = 1_000L * 10
+//        val selectedInterval = 1_000L * 5
 //        val triggerTime = SystemClock.elapsedRealtime() + selectedInterval
 //
 //        alarmManager.setExactAndAllowWhileIdle(
@@ -172,19 +183,19 @@ class TaskService : LifecycleService() {
 //        )
 
         // Repeating Alarm
-//    alarmManager.setInexactRepeating(
-//        AlarmManager.RTC_WAKEUP,
-//        calendar.timeInMillis,
-//        AlarmManager.INTERVAL_DAY,
-//        pendingIntent
-//    )
+        alarmManager.setInexactRepeating(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY,
+            pendingIntent
+        )
 
         // Intermediate Alarm
-        alarmManager.setAlarmClock(
-            AlarmManager.AlarmClockInfo(
-                calendar.timeInMillis,
-                pendingIntent
-            ), pendingIntent
-        )
+//        alarmManager.setAlarmClock(
+//            AlarmManager.AlarmClockInfo(
+//                calendar.timeInMillis,
+//                pendingIntent
+//            ), pendingIntent
+//        )
     }
 }

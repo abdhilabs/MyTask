@@ -18,7 +18,6 @@ class TaskReceiver : BroadcastReceiver() {
             context!!,
             NotificationManager::class.java
         ) as NotificationManager
-
         val type = intent?.getStringExtra("type")
         val validateTime = intent?.getStringExtra("validateTime")
 
@@ -30,7 +29,16 @@ class TaskReceiver : BroadcastReceiver() {
             if (getTimeNow() == validateTime) {
                 when {
                     type.equals(DAILY_NOTIFICATION) -> {
-                        notificationManager.sendNotification(notifyId, title, deadline, context)
+                        if (title == "Empty") {
+                            notificationManager.sendNotification(notifyId, title, deadline, context)
+                        } else {
+                            notificationManager.sendNotification(
+                                notifyId,
+                                "You have task : $title",
+                                "The deadline is : $deadline",
+                                context
+                            )
+                        }
                     }
                     type.equals(FCM_NOTIFICATION) -> {
                         notificationManager.sendNotificationFcm("Fcm Notification", context)

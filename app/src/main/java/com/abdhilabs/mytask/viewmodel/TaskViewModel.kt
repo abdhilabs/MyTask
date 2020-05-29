@@ -67,8 +67,8 @@ class TaskViewModel @Inject constructor(
 
     fun setAlarm(isChecked: Boolean) {
         when (isChecked) {
-            true -> setupNotification(app)
-            false -> cancelNotification(app)
+            true -> app.setupNotification()
+            false -> app.cancelNotification()
         }
     }
 

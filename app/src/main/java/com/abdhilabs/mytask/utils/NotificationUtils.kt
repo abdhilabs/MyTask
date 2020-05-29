@@ -6,7 +6,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import com.abdhilabs.mytask.App
+import com.abdhilabs.mytask.App.Companion.pref
 import com.abdhilabs.mytask.R
 import com.abdhilabs.mytask.receiver.TaskReceiver
 import com.abdhilabs.mytask.service.TaskService
@@ -15,21 +15,23 @@ import com.abdhilabs.mytask.ui.activities.MainActivity
 private const val FCM_NOTIFICATION_ID = 1
 private const val REQUEST_CODE = 0
 
-fun setupNotification(app: Application) {
-    val serviceIntent = Intent(app, TaskService::class.java)
-    app.startService(serviceIntent)
-    app.toast(app.resources.getString(R.string.message_switcher_on))
-    App.pref.isChecked = true
+fun Application.setupNotification() {
+    val serviceIntent = Intent(this, TaskService::class.java)
+    startService(serviceIntent)
+    toast(resources.getString(R.string.message_switcher_on))
+    pref.isChecked = true
 }
 
-fun cancelNotification(app: Application) {
-    app.toast(app.resources.getString(R.string.message_switcher_off))
-    val notifyIntent = Intent(app, TaskReceiver::class.java)
-    val alarmManager = app.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+fun Application.cancelNotification() {
+    val serviceIntent = Intent(this, TaskService::class.java)
+    stopService(serviceIntent)
+    toast(resources.getString(R.string.message_switcher_off))
+    val notifyIntent = Intent(this, TaskReceiver::class.java)
+    val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-    App.pref.isChecked = false
+    pref.isChecked = false
     val pendingIntent = PendingIntent.getBroadcast(
-        app,
+        applicationContext,
         10 + REQUEST_CODE,
         notifyIntent,
         PendingIntent.FLAG_UPDATE_CURRENT
@@ -59,8 +61,8 @@ fun NotificationManager.sendNotification(
         applicationContext.resources.getString(R.string.channel_id)
     )
         .setSmallIcon(R.drawable.ic_document)
-        .setContentTitle("You have task : $title")
-        .setContentText("The deadline is : $deadline")
+        .setContentTitle(title)
+        .setContentText(deadline)
         .setContentIntent(contentPendingIntent)
         .setAutoCancel(true)
 
