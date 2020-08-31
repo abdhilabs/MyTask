@@ -10,6 +10,7 @@ import com.abdhilabs.mytask.di.module.SharedPreferenceModule
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import timber.log.Timber
 import javax.inject.Inject
 
 class App : Application(), HasAndroidInjector {
@@ -26,6 +27,7 @@ class App : Application(), HasAndroidInjector {
     override fun onCreate() {
         super.onCreate()
         initAppDI()
+        initTimber()
     }
 
     private fun initAppDI() {
@@ -37,6 +39,12 @@ class App : Application(), HasAndroidInjector {
             .sharedPreferenceModule(SharedPreferenceModule())
             .build()
         appComponent.inject(this)
+    }
+
+    private fun initTimber() {
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
     }
 
     open fun getComponent(): AppComponent {
