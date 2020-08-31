@@ -1,6 +1,8 @@
 package com.abdhilabs.mytask.abstraction
 
+import android.content.Context
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -22,5 +24,12 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, resourceLayoutId())
 
         initView()
+    }
+
+    protected fun hideKeyboard() {
+        currentFocus.let {
+            (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+                .hideSoftInputFromWindow(it?.windowToken, 0)
+        }
     }
 }
