@@ -7,7 +7,7 @@ import com.abdhilabs.mytask.R
 import com.google.android.material.snackbar.Snackbar
 
 fun Context.toast(msg: String): Toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT).apply {
-    view.setBackgroundResource(R.drawable.bg_rounded_toast)
+    view?.setBackgroundResource(R.drawable.bg_rounded_toast)
     setText(msg)
     duration = Toast.LENGTH_SHORT
     show()
