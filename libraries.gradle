@@ -1,14 +1,15 @@
 ext {
     versions = [
-            room     : '2.2.5',
-            coroutine: '1.3.5',
-            lifecycle: '2.2.0',
-            material : '1.0.0',
-            dagger   : '2.27',
-            switcher : '1.1.0',
-            analytics: '17.4.0',
-            messaging: '20.1.6',
-            perf     : '19.0.7'
+            room      : '2.2.5',
+            coroutine : '1.3.5',
+            lifecycle : '2.2.0',
+            material  : '1.0.0',
+            dagger    : '2.27',
+            switcher  : '1.1.0',
+            navigation: '2.2.2',
+            analytics : '17.4.0',
+            messaging : '20.1.6',
+            perf      : '19.0.7'
     ]
 
     coreDependencies = [
@@ -53,6 +54,11 @@ ext {
             dagger: "com.google.dagger:dagger:$versions.dagger"
     ]
 
+    navigationDependencies = [
+            navigation_fragment: "androidx.navigation:navigation-fragment-ktx:$versions.navigation",
+            navigation_ui      : "androidx.navigation:navigation-ui-ktx:$versions.navigation"
+    ]
+
     customDependencies = [
             switcher: "com.bitvale:switcher:$versions.switcher"
     ]
@@ -66,6 +72,7 @@ ext {
     appDependencies = [
             coreDependencies.values(),
             roomDependencies.values(),
+            navigationDependencies.values(),
             daggerDependencies.values(),
             architecturalComponentDependencies.values(),
             couroutineDependencies.values(),
