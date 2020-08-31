@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import com.abdhilabs.mytask.App.Companion.pref
 import com.abdhilabs.mytask.R
 import com.abdhilabs.mytask.receiver.TaskReceiver
 import com.abdhilabs.mytask.ui.activities.MainActivity
@@ -17,7 +16,7 @@ private const val REQUEST_CODE = 0
 
 fun Context.setupNotification() {
     toast(resources.getString(R.string.message_switcher_on))
-    pref.isChecked = true
+//    pref.isChecked = true
     val alarmTime = listOf(
         "07:00",
         "19:00"
@@ -83,7 +82,7 @@ fun Activity.cancelNotification() {
     val notifyIntent = Intent(this, TaskReceiver::class.java)
     val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-    pref.isChecked = false
+//    pref.isChecked = false
     val pendingIntent = PendingIntent.getBroadcast(
         applicationContext,
         10 + REQUEST_CODE,

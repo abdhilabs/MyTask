@@ -26,7 +26,8 @@ ext {
 
     kaptDependencies = [
             room_compiler  : "androidx.room:room-compiler:$versions.room",
-            dagger_compiler: "com.google.dagger:dagger-compiler:$versions.dagger"
+            dagger_compiler: "com.google.dagger:dagger-compiler:$versions.dagger",
+            dagger_android_processor: "com.google.dagger:dagger-android-processor:$versions.dagger",
     ]
 
     architecturalComponentDependencies = [
@@ -51,7 +52,9 @@ ext {
     ]
 
     daggerDependencies = [
-            dagger: "com.google.dagger:dagger:$versions.dagger"
+            dagger: "com.google.dagger:dagger:$versions.dagger",
+            dagger_android        : "com.google.dagger:dagger-android:$versions.dagger",
+            dagger_android_support: "com.google.dagger:dagger-android-support:$versions.dagger"
     ]
 
     navigationDependencies = [

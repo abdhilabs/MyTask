@@ -1,27 +1,25 @@
 package com.abdhilabs.mytask.di.component
 
-import android.content.Context
-import com.abdhilabs.mytask.abstraction.BaseViewModelFactory
-import com.abdhilabs.mytask.di.module.RoomModule
-import com.abdhilabs.mytask.di.module.ServiceModule
-import com.abdhilabs.mytask.receiver.TaskReceiver
-import com.abdhilabs.mytask.viewmodel.TaskViewModel
-import dagger.BindsInstance
+import com.abdhilabs.mytask.App
+import com.abdhilabs.mytask.di.module.*
 import dagger.Component
+import dagger.android.AndroidInjectionModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [RoomModule::class, ServiceModule::class])
+@Component(
+    modules = [
+        AndroidInjectionModule::class,
+        ActivityInjectionModule::class,
+        FragmentInjectionModule::class,
+        ContextModule::class,
+        CoroutineDispatcherModule::class,
+        ViewModelModule::class,
+        RepositoryModule::class,
+        SharedPreferenceModule::class,
+        RoomModule::class,
+        ServiceModule::class]
+)
 interface AppComponent {
-
-    @Component.Builder
-    interface Builder {
-        @BindsInstance
-        fun applicationContext(applicationContext: Context): Builder
-
-        fun build(): AppComponent
-    }
-
-    fun taskViewModelFactory(): BaseViewModelFactory<TaskViewModel>
-    fun inject(service: TaskReceiver)
+    fun inject(instance: App)
 }

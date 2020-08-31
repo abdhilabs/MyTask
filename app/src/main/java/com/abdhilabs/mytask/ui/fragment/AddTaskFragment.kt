@@ -21,7 +21,7 @@ class AddTaskFragment(var task: Task?) :
     override fun initViewCreated() {
         binding.lifecycleOwner = this
         binding.fragment = this
-        viewmodel = (activity as MainActivity).viewmodel
+//        viewmodel = (activity as MainActivity).viewmodel
         initViewEdit()
     }
 

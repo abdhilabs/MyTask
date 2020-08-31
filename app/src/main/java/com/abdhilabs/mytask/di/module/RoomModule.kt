@@ -11,9 +11,8 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-object RoomModule {
+class RoomModule {
 
-    @JvmStatic
     @Provides
     @Singleton
     fun provideRoomDb(applicationContext: Context): AppDatabase {

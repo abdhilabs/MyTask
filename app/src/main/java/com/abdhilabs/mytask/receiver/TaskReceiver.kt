@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat
 import com.abdhilabs.mytask.data.repository.TaskRepository
-import com.abdhilabs.mytask.di.component.DaggerAppComponent
 import com.abdhilabs.mytask.utils.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,10 +24,10 @@ class TaskReceiver : BroadcastReceiver() {
     private val coroutineScope = CoroutineScope(job + Dispatchers.IO)
 
     override fun onReceive(context: Context, intent: Intent?) {
-        DaggerAppComponent.builder()
-            .applicationContext(context)
-            .build()
-            .inject(this)
+//        DaggerAppComponent.builder()
+//            .applicationContext(context)
+//            .build()
+//            .inject(this)
 
         val notificationManager = ContextCompat.getSystemService(
             context,

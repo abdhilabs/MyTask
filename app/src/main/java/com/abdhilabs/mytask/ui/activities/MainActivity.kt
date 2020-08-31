@@ -1,42 +1,47 @@
 package com.abdhilabs.mytask.ui.activities
 
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.abdhilabs.mytask.App.Companion.pref
 import com.abdhilabs.mytask.R
-import com.abdhilabs.mytask.adapter.TaskAdapter
 import com.abdhilabs.mytask.abstraction.BaseActivity
+import com.abdhilabs.mytask.adapter.TaskAdapter
 import com.abdhilabs.mytask.databinding.ActivityMainBinding
-import com.abdhilabs.mytask.di.injector
 import com.abdhilabs.mytask.ui.fragment.AddTaskFragment
 import com.abdhilabs.mytask.ui.fragment.DetailFragment
 import com.abdhilabs.mytask.utils.cancelNotification
 import com.abdhilabs.mytask.utils.setupNotification
 import com.abdhilabs.mytask.utils.snackbar
-import com.abdhilabs.mytask.viewmodel.TaskViewModel
 import com.google.android.material.snackbar.BaseTransientBottomBar
+import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
+import javax.inject.Inject
 
-class MainActivity : BaseActivity<ActivityMainBinding>() {
-
-    val viewmodel: TaskViewModel by lazy {
-        ViewModelProvider(this, injector.taskViewModelFactory())[TaskViewModel::class.java]
-    }
+class MainActivity : BaseActivity<ActivityMainBinding>(), HasAndroidInjector {
 
     private lateinit var taskAdapter: TaskAdapter
+
+    @Inject
+    lateinit var androidInjector: DispatchingAndroidInjector<Any>
+
+    override fun androidInjector(): AndroidInjector<Any> {
+        return androidInjector
+    }
 
     override fun resourceLayoutId(): Int = R.layout.activity_main
 
     override fun initView() {
+        AndroidInjection.inject(this)
         binding.lifecycleOwner = this
         binding.activity = this
-        binding.viewmodel = viewmodel
+//        binding.viewmodel = viewmodel
         taskAdapter = TaskAdapter()
         initSwipe()
         with(binding) {
             rvTask.adapter = taskAdapter
-            turnNotification.setChecked(pref.isChecked)
+//            turnNotification.setChecked(pref.isChecked)
             turnNotification.setOnCheckedChangeListener { isChecked ->
                 if (isChecked) {
                     this@MainActivity.setupNotification()
@@ -70,11 +75,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
                 val task = taskAdapter.differ.currentList[position]
-                viewmodel.deleteTask(task)
+//                viewmodel.deleteTask(task)
                 binding.root.snackbar("Successfully deleted task").apply {
                     duration = BaseTransientBottomBar.LENGTH_LONG
                     setAction("Undo") {
-                        viewmodel.saveTask(task)
+//                        viewmodel.saveTask(task)
                         if (position < 1) taskAdapter.notifyDataSetChanged()
                     }
                 }
