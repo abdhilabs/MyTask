@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.abdhilabs.mytask.App.Companion.pref
 import com.abdhilabs.mytask.R
 import com.abdhilabs.mytask.adapter.TaskAdapter
-import com.abdhilabs.mytask.base.BaseActivity
+import com.abdhilabs.mytask.abstraction.BaseActivity
 import com.abdhilabs.mytask.databinding.ActivityMainBinding
 import com.abdhilabs.mytask.di.injector
 import com.abdhilabs.mytask.ui.fragment.AddTaskFragment

@@ -3,7 +3,7 @@ package com.abdhilabs.mytask.ui.fragment
 import android.view.ViewGroup.LayoutParams
 import android.view.WindowManager
 import com.abdhilabs.mytask.R
-import com.abdhilabs.mytask.base.BaseDialogFragment
+import com.abdhilabs.mytask.abstraction.BaseDialogFragment
 import com.abdhilabs.mytask.data.model.Task
 import com.abdhilabs.mytask.databinding.ItemDialogTaskInfoBinding
 

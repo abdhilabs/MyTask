@@ -1,4 +1,4 @@
-package com.abdhilabs.mytask.base
+package com.abdhilabs.mytask.abstraction
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

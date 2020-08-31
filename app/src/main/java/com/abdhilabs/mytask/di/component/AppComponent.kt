@@ -1,7 +1,7 @@
 package com.abdhilabs.mytask.di.component
 
 import android.content.Context
-import com.abdhilabs.mytask.base.BaseViewModelFactory
+import com.abdhilabs.mytask.abstraction.BaseViewModelFactory
 import com.abdhilabs.mytask.di.module.RoomModule
 import com.abdhilabs.mytask.di.module.ServiceModule
 import com.abdhilabs.mytask.receiver.TaskReceiver
