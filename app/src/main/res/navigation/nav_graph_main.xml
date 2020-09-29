@@ -1,5 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph_main">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/homeFragment">
 
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.abdhilabs.mytask.ui.fragment.HomeFragment"
+        android:label="HomeFragment">
+        <action
+            android:id="@+id/action_homeFragment_to_addTaskFragment"
+            app:destination="@id/addTaskFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/addTaskFragment"
+        android:name="com.abdhilabs.mytask.ui.fragment.AddTaskFragment"
+        android:label="AddTaskFragment">
+        <argument
+            android:name="task"
+            app:argType="com.abdhilabs.mytask.data.model.Task" />
+    </dialog>
+    <dialog
+        android:id="@+id/detailFragment"
+        android:name="com.abdhilabs.mytask.ui.fragment.DetailFragment"
+        android:label="DetailFragment">
+        <argument
+            android:name="task"
+            app:argType="com.abdhilabs.mytask.data.model.Task" />
+    </dialog>
 </navigation>
