@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.abdhilabs.mytask.viewmodel.TaskViewModel" />
+
+        <variable
+            name="activity"
+            type="com.abdhilabs.mytask.ui.activities.MainActivity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/lightWhiteColor">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTask"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/space_x8"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            app:listTask="@{viewmodel.task}" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/space_x6_half"
+            android:layout_marginBottom="@dimen/space_x2"
+            android:backgroundTint="@color/greenColor"
+            android:onClick="@{() -> activity.onAddButtonClicked()}"
+            android:text="@string/str_add_new_task"
+            android:textColor="@color/whiteColor"
+            app:cornerRadius="@dimen/space_x2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/layoutEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:isLayoutEmpty="@{viewmodel.isEmpty()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_empty_box" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_x2"
+                android:text="Anda tidak memiliki tugas"
+                android:textColor="@color/redColor"
+                android:textSize="@dimen/text_24"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_x2"
+            android:layout_marginTop="@dimen/space_x2"
+            android:textColor="@color/greenColor"
+            android:textSize="@dimen/text_18"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:setDay="@{viewmodel.setTextDay}"
+            app:setUsername="@{viewmodel.setTextUsername}"
+            tools:text="Morning, Abdhi" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_x2"
+            android:textColor="@color/blueSkyColor"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:setTextToday="@{viewmodel.setTextToday}"
+            tools:text="Today is Monday, 16 Mei 2020" />
+
+        <com.bitvale.switcher.SwitcherX
+            android:id="@+id/turnNotification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_x2"
+            android:layout_marginEnd="@dimen/space_x2"
+            android:switchPadding="@dimen/space_x1"
+            android:textColor="@color/blueSkyColor"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:switcher_off_color="@color/redColor"
+            app:switcher_on_color="@color/greenColor" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
