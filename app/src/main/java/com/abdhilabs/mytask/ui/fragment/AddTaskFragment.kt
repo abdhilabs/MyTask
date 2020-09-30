@@ -58,7 +58,7 @@ class AddTaskFragment(var task: Task?) :
 
     fun onBtnSaveClicked() {
         with(binding) {
-            val id = task?.id
+//            val id = task?.id
             val title = etTitle.text.toString()
             val deadline = etDeadline.text.toString()
             val desc = etDescription.text.toString()

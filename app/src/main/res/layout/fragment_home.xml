@@ -10,15 +10,14 @@
             type="com.abdhilabs.mytask.viewmodel.TaskViewModel" />
 
         <variable
-            name="activity"
-            type="com.abdhilabs.mytask.ui.activities.MainActivity" />
+            name="fragment"
+            type="com.abdhilabs.mytask.ui.fragment.HomeFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/lightWhiteColor">
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTask"
@@ -30,8 +29,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3"
-            app:listTask="@{viewmodel.task}" />
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 
         <com.google.android.material.button.MaterialButton
@@ -39,7 +37,7 @@
             android:layout_height="@dimen/space_x6_half"
             android:layout_marginBottom="@dimen/space_x2"
             android:backgroundTint="@color/greenColor"
-            android:onClick="@{() -> activity.onAddButtonClicked()}"
+            android:onClick="@{() -> fragment.onAddButtonClicked()}"
             android:text="@string/str_add_new_task"
             android:textColor="@color/whiteColor"
             app:cornerRadius="@dimen/space_x2"

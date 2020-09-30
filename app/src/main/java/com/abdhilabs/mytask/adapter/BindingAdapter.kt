@@ -6,36 +6,26 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.abdhilabs.mytask.R
-import com.abdhilabs.mytask.data.model.Task
 import com.abdhilabs.mytask.utils.DateTimeFormatter
 import java.text.SimpleDateFormat
 import java.util.*
 
-@BindingAdapter("listTask")
-fun bindTaskRecyclerView(recyclerView: RecyclerView, task: List<Task>?) {
-    val adapter = recyclerView.adapter as TaskAdapter
-    if (task != null) {
-        adapter.differ.submitList(task)
-        recyclerView.visibility = VISIBLE
-    } else {
-        recyclerView.visibility = GONE
-    }
-}
-
 @BindingAdapter("setDay", "setUsername")
-fun TextView.setName(time: String, name: String) {
+fun TextView.setName(time: String?, name: String?) {
+    if (time == null || name == null) return
     text = resources.getString(R.string.text_name, time, name)
 }
 
 @BindingAdapter("setTextToday")
-fun TextView.setDate(date: String) {
+fun TextView.setDate(date: String?) {
+    if (date == null) return
     text = resources.getString(R.string.text_today, date)
 }
 
 @BindingAdapter("isLayoutEmpty")
-fun bindLayoutIsEmpty(layout: LinearLayout, isEmpty: Boolean) {
+fun bindLayoutIsEmpty(layout: LinearLayout, isEmpty: Boolean?) {
+    if (isEmpty == null) return
     if (isEmpty) {
         layout.visibility = VISIBLE
     } else {
@@ -45,6 +35,7 @@ fun bindLayoutIsEmpty(layout: LinearLayout, isEmpty: Boolean) {
 
 @BindingAdapter("onLayoutDateDeadline")
 fun bindWarningLayout(layout: ConstraintLayout, dateDeadline: String?) {
+    if (dateDeadline == null) return
     when {
         isDeadlineToday(dateDeadline) -> {
             layout.setBackgroundResource(R.drawable.bg_rounded_layout_red)
@@ -60,6 +51,7 @@ fun bindWarningLayout(layout: ConstraintLayout, dateDeadline: String?) {
 
 @BindingAdapter("onIconDateDeadline")
 fun bindWarningIcon(imageView: AppCompatImageView, dateDeadline: String?) {
+    if (dateDeadline == null) return
     when {
         isDeadlineToday(dateDeadline) -> {
             imageView.setBackgroundResource(R.drawable.ic_clock_alert)
@@ -75,6 +67,7 @@ fun bindWarningIcon(imageView: AppCompatImageView, dateDeadline: String?) {
 
 @BindingAdapter("onTextTitleDateDeadline")
 fun bindWarningTitleText(textView: TextView, dateDeadline: String?) {
+    if (dateDeadline == null) return
     when {
         isDeadlineToday(dateDeadline) -> {
             textView.setTextColor(textView.resources.getColor(R.color.whiteColor, null))
@@ -90,6 +83,7 @@ fun bindWarningTitleText(textView: TextView, dateDeadline: String?) {
 
 @BindingAdapter("onTextSubTitleDateDeadline")
 fun bindWarningSubTitleText(textView: TextView, dateDeadline: String?) {
+    if (dateDeadline == null) return
     when {
         isDeadlineToday(dateDeadline) -> {
             textView.text = textView.resources.getString(
@@ -110,6 +104,7 @@ fun bindWarningSubTitleText(textView: TextView, dateDeadline: String?) {
 
 @BindingAdapter("onTextDeadlinePassed")
 fun bindWarningDeadlinePassedText(textView: TextView, dateDeadline: String?) {
+    if (dateDeadline == null) return
     if (isDeadlineHasPassed(dateDeadline)) {
         textView.visibility = VISIBLE
     } else {

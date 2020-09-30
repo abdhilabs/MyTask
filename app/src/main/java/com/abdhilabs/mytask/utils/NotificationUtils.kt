@@ -77,7 +77,7 @@ private fun Context.setupAlarm(
 //        )
 }
 
-fun Activity.cancelNotification() {
+fun Context.cancelNotification() {
     toast(resources.getString(R.string.message_switcher_off))
     val notifyIntent = Intent(this, TaskReceiver::class.java)
     val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
